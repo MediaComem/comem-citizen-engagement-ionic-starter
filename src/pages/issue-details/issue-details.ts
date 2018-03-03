@@ -1,32 +1,24 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { IssueDetailsPage } from '../issue-details/issue-details';
-
 /**
- * Generated class for the IssueListPage page.
+ * Generated class for the IssueDetailsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
 @Component({
-  selector: 'page-issue-list',
-  templateUrl: 'issue-list.html',
+  selector: 'page-issue-details',
+  templateUrl: 'issue-details.html',
 })
-export class IssueListPage {
+export class IssueDetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IssueListPage');
-  }
-
-  goToDetails() {
-    this.navCtrl.push(IssueDetailsPage, {
-      foo: 'bar'
-    });
+    console.log('ionViewDidLoad IssueDetailsPage');
   }
 
 }
