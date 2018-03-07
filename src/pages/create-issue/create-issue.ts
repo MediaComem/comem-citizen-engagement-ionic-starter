@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { AuthProvider } from '../../providers/auth/auth';
 import { config } from '../../app/config';
+import { QimgImage } from '../../models/qimg-image';
+import { AuthProvider } from '../../providers/auth/auth';
+import { PictureProvider } from '../../providers/picture/picture';
 
 /**
  * Generated class for the CreateIssuePage page.
@@ -13,21 +14,20 @@ import { config } from '../../app/config';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @Component({
   selector: 'page-create-issue',
   templateUrl: 'create-issue.html',
 })
 export class CreateIssuePage {
-  base64Picture: string;
+  picture: QimgImage;
 
   constructor(
     private auth: AuthProvider,
-    private camera: Camera,
     private geolocation: Geolocation,
     private httpClient: HttpClient,
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private pictureService: PictureProvider,
     private platform: Platform
   ) {
   }
@@ -55,20 +55,10 @@ export class CreateIssuePage {
   }
 
   takePicture() {
-
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
-    this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64:
-     this.base64Picture = imageData;
-    }, (err) => {
-     // Handle error
+    this.pictureService.takeAndUploadPicture().subscribe(picture => {
+      this.picture = picture;
+    }, err => {
+      console.warn('Could not take picture', err);
     });
   }
 

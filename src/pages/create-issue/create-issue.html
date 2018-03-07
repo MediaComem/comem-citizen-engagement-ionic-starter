@@ -23,5 +23,5 @@
 <ion-content padding>
   Let's create an issue.
   <button ion-button (click)='takePicture()'>Take picture</button>
-  <img *ngIf='base64Picture' src='data:image/jpeg;base64,{{ base64Picture }}' />
+  <img *ngIf='picture' [src]='picture.url' />
 </ion-content>
